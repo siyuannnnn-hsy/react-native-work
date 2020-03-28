@@ -32,7 +32,16 @@ export default class My extends Component {
                 )}
             );
         }
-
+    
+    end = () =>{
+        AsyncStorage.removeItem('user', (error)=>{
+            if(!error){
+              console.log('清除缓存')
+            }
+         })
+         .then(()=>{Actions.login()})
+         
+    }
 
     componentDidMount(){
         AsyncStorage.getItem('imageUrl')
@@ -134,7 +143,7 @@ export default class My extends Component {
                         </View>
                     </View>
                     <View style={{alignItems:'center',justifyContent:'center'}}>
-                        <Text style={{paddingTop:30,color:'#bbb'}}>BINNU DHILLON  |  退出</Text>
+                        <Text style={{paddingTop:30,color:'#bbb'}} onPress={this.end}>BINNU DHILLON  |  退出</Text>
                     </View>
                 </View>
             </ScrollView>
