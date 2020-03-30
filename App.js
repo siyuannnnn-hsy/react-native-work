@@ -1,5 +1,5 @@
 import React,{useState,useEffect}  from 'react';
-import {StyleSheet,View,Text, Image, BackHandler, ToastAndroid,AsyncStorage} from 'react-native';
+import {StyleSheet,View,Text, Image,BackHandler,ToastAndroid,AsyncStorage} from 'react-native';
 import {Router,Scene,Tabs, Actions} from 'react-native-router-flux';
 import {Gird,Icon} from '@ant-design/react-native';
 import Kinds from './components/Kinds';
@@ -11,6 +11,7 @@ import SplashScreen from 'react-native-splash-screen';
 import SwiperPage from './components/SwiperPage'
 import Login from './components/Login'
 import ZhuCe from './components/ZhuCe';
+
 console.disableYellowBox = true;
 const App = () => {
   let [isLogin,setLogin] = useState(false);
@@ -50,32 +51,48 @@ const App = () => {
   }
   return (
     <Router
-			backAndroidHandler={()=>{
-				if(Actions.currentScene != 'home'){
-					Actions.pop();
-					return true;
-				}else{
-					if(new Date().getTime()-now<2000){
-						BackHandler.exitApp();
-					}else{
-						ToastAndroid.show('确定要退出吗',100);
-						now = new Date().getTime();
-						return true;
-					}
-				}
-				
-			}}
-		>
+        backAndroidHandler={()=>{
+          console.log('aaaa')
+          console.log(Actions.currentScene)
+          if(Actions.currentScene != 'home'){
+            console.log('111')
+            Actions.pop();
+            return true;
+          }
+          else{
+            if(new Date().getTime()-now<2000){
+              console.log('222')
+              BackHandler.exitApp();
+            }else{
+              console.log('333')
+              ToastAndroid.show('确定要退出吗',100);
+              now = new Date().getTime();
+              return true;
+            }
+          }
+          
+        }}
+    >
+
       <Scene key='root'>
         <Tabs key='tabbar' hideNavBar activeTintColor='red' 
             header={null}
            inactiveTintColor='blue' tabBarStyle={{backgroundColor:'white'}}
         >
-          <Scene key='home' title='首页' 
+
+          <Scene key='homePage'	title='首页'
+                  icon={
+                    ({focused})=><Icon color={focused?'red':'gray'} name='home'/>
+									}
+								>
+									<Scene key='home' component={Home}/>
+								</Scene>
+
+          {/* <Scene key='home' title='首页' 
             icon={
                 ({focused})=><Icon color={focused?'red':'gray'} name='home'/>}
                 component={Home}
-          />
+          /> */}
           <Scene key='kinds' title='商品分类' 
               icon={({focused})=><Icon  color={focused?'red':'gray'} name='car'/>}
                    component={Kinds}

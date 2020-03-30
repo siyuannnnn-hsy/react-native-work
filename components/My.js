@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {StyleSheet,View,Text, ScrollView, Image, ImageBackground,Dimensions,AsyncStorage,Animated,TouchableOpacity} from 'react-native'
+import {StyleSheet,View,Text, ScrollView, Image, ImageBackground,Dimensions,AsyncStorage,Animated,TouchableOpacity, Button} from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Actions } from 'react-native-router-flux';
 import ImagePicker from 'react-native-image-picker';

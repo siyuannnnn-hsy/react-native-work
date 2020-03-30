@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Image, TextInput, TouchableOpacity,AsyncStorage} from 'react-native';
+import {View, Text, Image, TextInput, TouchableOpacity,AsyncStorage,ToastAndroid} from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import { Actions } from 'react-native-router-flux';
 import {myFetch} from './index'
@@ -26,13 +26,23 @@ export default class ZhuCe extends Component {
                 username:this.state.username,
                 pwd:this.state.pwd
             }).then(res=>{
+              if(res.data.token == '1'){
+                Alert.alert('账户已存在')
+              }
+              else if(res.data.token == '2'){
+                Alert.alert('连接错误')
+              }
+              else{
                 AsyncStorage.setItem('user',JSON.stringify(res.data))
-                    .then(()=>{
-                        this.setState({isloading:false})
-                        Actions.login();
-                    })
+                .then(()=>{
+                    this.setState({isloading:false})
+                    Actions.login();
+                })
+              }
+              console.log(res.data)
+              
             })
-           
+            ToastAndroid.show('注册成功', 1000)
     }
     render() {
         return (
