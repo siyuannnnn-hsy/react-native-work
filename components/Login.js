@@ -58,12 +58,13 @@ export default class Login extends Component {
                 AsyncStorage.setItem('user',JSON.stringify(res.data))
                 .then(()=>{
                     this.setState({isloading:false})
-                    Actions.home();
+                    ToastAndroid.show('正在登录中...', 1000)
+                    Actions.homePage();
                 })
               }
               console.log(res.data)
             })
-            ToastAndroid.show('正在登录中...', 1000)
+            
     }
   render() {
     return (
